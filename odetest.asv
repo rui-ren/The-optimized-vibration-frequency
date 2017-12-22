@@ -1,0 +1,21 @@
+function xdot=odetest(t,x)
+xdot=zero(2,1);
+xdot(1)=x(2);
+xdot(2)=-0.5*x(2)-2*x(1)-x(1)^2;
+
+tspan=[0 20];
+x0=[0 1];
+[t,x]=ode23(@odetest,tspan,x0);
+plot(t,x)
+end
+
+
+dx(1)=20/7*x(1)-x(2)*x(3);
+dx(2)=-10*x(2)+x(1)*x(3);
+dx(3)=-4*x(3)+x(1)*x(2);
+dx=dx(:);
+x0=[3,-4,2];
+t0=0.001:0.001:20;
+[t,x]=ode45('myfun',[0.001,20],x0);  %ode45???????
+plot(t,x) 
+legend('x','y','z')

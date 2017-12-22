@@ -1,0 +1,25 @@
+function AssembleGlobalMatrix( ie, ke, me )
+%  把单元刚度和质量矩阵集成到整体刚度矩阵
+%      ie  --- 单元号
+%      ke  --- 单元刚度矩阵
+%      me  --- 单元质量矩阵
+%  返回值:
+
+  global gElement gK gM
+    for i=1:1:2
+        for j=1:1:2
+            for p=1:1:2
+                for q =1:1:2
+                    m = (i-1)*2+p;
+                    n = (j-1)*2+q ;
+                    M = (gElement(ie,i)-1)*2+p ;
+                    N = (gElement(ie,j)-1)*2+q ;
+                    gK(M,N) = gK(M,N) + ke(m,n) ;
+                    gM(M,N) = gM(M,N) + me(m,n) ;
+                end
+            end
+        end
+    end
+return
+
+% 检查没有问题
